@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Data
@@ -31,14 +32,15 @@ public class Room {
     @JoinColumn(
             name = "ID_Hotel"
     )
-    private com.demo.dztourism.Acommodation.Model.Hotel Hotel ;
+    private Hotel Hotel ;
+
 
 
     @ManyToOne
     @JoinColumn(
             name = ("ID_Room_Type")
     )
-    private com.demo.dztourism.Acommodation.Model.Room_Type Room_Type ;
+    private Room_Type Room_Type ;
 
 
 

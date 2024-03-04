@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,7 +25,7 @@ public class Hotel {
 
     private String Name ;
 
-    private int Phone_number ;
+    private String Phone_number ;
 
     private String Email ;
 
@@ -45,6 +46,8 @@ public class Hotel {
     private int Longitude ;
 
     private String Timezone ;
+
+    private String Photos ;
 
     @OneToMany(
             mappedBy = "Hotel" ,
