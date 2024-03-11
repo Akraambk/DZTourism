@@ -1,6 +1,7 @@
 package com.demo.dztourism.Acommodation.Controllers;
 
 import com.demo.dztourism.Acommodation.Model.DTO.RoomDTO;
+import com.demo.dztourism.Acommodation.Service.Impl.RoomServiceImpl;
 import com.demo.dztourism.Acommodation.Service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,10 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/Room/")
 public class RoomController {
 
-    RoomService roomService ;
+    RoomServiceImpl roomService ;
 
     @Autowired
-    public RoomController(RoomService roomService) {
+    public RoomController(RoomServiceImpl roomService) {
         this.roomService = roomService;
     }
 
@@ -25,8 +26,14 @@ public class RoomController {
     public ResponseEntity<RoomDTO> createRoom(@RequestBody RoomDTO roomDTO){
 
 
-        RoomDTO savedRoom = roomService.save(roomDTO) ;
-        return new ResponseEntity<>(savedRoom , HttpStatus.CREATED) ;
+        RoomDTO savedRoom = roomService.createRoom(roomDTO) ;
+        if (savedRoom == null) {
+            return  ResponseEntity.notFound().build() ;
+        } else {
+
+            return new ResponseEntity<>(savedRoom , HttpStatus.CREATED) ;
+        }
+
 
     }
 

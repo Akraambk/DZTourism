@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RoomDTO {
 
+    private Long ID_Room ;
 
     private int Capacity ;
 

@@ -1,5 +1,7 @@
 package com.demo.dztourism.Acommodation.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,6 +34,7 @@ public class Room {
     @JoinColumn(
             name = "ID_Hotel"
     )
+    @JsonIgnore
     private Hotel Hotel ;
 
 

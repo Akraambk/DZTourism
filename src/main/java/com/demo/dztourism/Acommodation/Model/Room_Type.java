@@ -31,13 +31,10 @@ public class Room_Type {
             mappedBy = "Room_Type" ,
             cascade = CascadeType.ALL
     )
-    private List<com.demo.dztourism.Acommodation.Model.Room> Room;
+    private List<Room> Room;
 
-   @ManyToMany(
-           mappedBy = "Room_Type" ,
-           cascade = CascadeType.ALL
-   )
-    private List<com.demo.dztourism.Acommodation.Model.Bed_Type> Bed_Type ;
+
+    private String Bed_Type ;
 
     @ManyToMany
     @JoinTable(

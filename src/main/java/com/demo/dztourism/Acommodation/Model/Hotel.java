@@ -1,5 +1,6 @@
 package com.demo.dztourism.Acommodation.Model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -52,5 +53,5 @@ public class Hotel {
     @OneToMany(
             mappedBy = "Hotel" ,
             cascade = CascadeType.ALL )
-    private List<com.demo.dztourism.Acommodation.Model.Room> Room;
+    private List<Room> Room;
 }

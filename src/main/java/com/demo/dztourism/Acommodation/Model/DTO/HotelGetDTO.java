@@ -1,9 +1,12 @@
 package com.demo.dztourism.Acommodation.Model.DTO;
 
+import com.demo.dztourism.Acommodation.Model.Room;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @Builder
@@ -26,5 +29,7 @@ public class HotelGetDTO {
     private String City ;
 
     private String Country ;
+
+    private List<Room> Room;
 
 }

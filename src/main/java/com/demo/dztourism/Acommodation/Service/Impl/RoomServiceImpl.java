@@ -39,9 +39,18 @@ public class RoomServiceImpl implements RoomService {
         Optional<Hotel> hotel = hotelRepository.findById(roomDTO.getID_hotel()) ;
 
 
-        Room room = modelMapper.map(roomDTO , Room.class) ;
+        if(hotel.isPresent()){
 
-        return  modelMapper.map(roomRepository.save(room) , RoomDTO.class)  ;
+            Hotel OptionalHotel = hotel.get() ;
+            Room room = modelMapper.map(roomDTO , Room.class) ;
+            room.setHotel(OptionalHotel);
+            return  modelMapper.map(roomRepository.save(room) , RoomDTO.class) ;
+
+        } else {
+
+            return null ;
+        }
+
 
     }
 
