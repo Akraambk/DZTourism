@@ -16,8 +16,8 @@ import java.util.Optional;
 @Service
 public class RoomServiceImpl implements RoomService {
 
-    RoomRepository roomRepository ;
-    ModelMapper modelMapper ;
+    private final RoomRepository roomRepository ;
+   private final  ModelMapper modelMapper ;
 
     HotelRepository hotelRepository ;
 
@@ -28,10 +28,7 @@ public class RoomServiceImpl implements RoomService {
         this.hotelRepository = hotelRepository ;
     }
 
-    @Override
-    public RoomDTO save(RoomDTO roomDTO) {
-        return null;
-    }
+
 
     @Override
     public RoomDTO createRoom(RoomDTO roomDTO) {

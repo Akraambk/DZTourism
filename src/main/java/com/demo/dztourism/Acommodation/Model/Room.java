@@ -43,6 +43,7 @@ public class Room {
     @JoinColumn(
             name = ("ID_Room_Type")
     )
+    @JsonIgnore
     private Room_Type Room_Type ;
 
 

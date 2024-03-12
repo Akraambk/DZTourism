@@ -7,7 +7,7 @@ import com.demo.dztourism.Acommodation.Model.DTO.RoomDTO;
 import java.util.List;
 
 public interface RoomService {
-    RoomDTO save(RoomDTO roomDTO ) ;
+
 
     RoomDTO createRoom(RoomDTO roomDTO);
 
