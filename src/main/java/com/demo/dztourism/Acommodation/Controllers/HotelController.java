@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/Hotel/")
-@CrossOrigin("http://localhost:3001/")
+@CrossOrigin("http://localhost:3000/")
 public class HotelController {
     HotelServiceImpl hotelService ;
 

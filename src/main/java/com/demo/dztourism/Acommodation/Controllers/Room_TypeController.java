@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/RoomType/")
+@CrossOrigin(origins = "http://localhost:3000")
 public class Room_TypeController {
 
    private final Room_TypeServiceImpl roomTypeService ;
@@ -16,6 +17,7 @@ public class Room_TypeController {
     }
 
     @PostMapping(value = "CreateRoomType")
+
     public ResponseEntity<Room_typeDTO> CreateRoomType(@RequestBody Room_typeDTO room_typeDTO ){
 
 

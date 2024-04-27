@@ -27,6 +27,8 @@ public class Room {
 
     private int Capacity ;
 
+    private int Room_number ;
+
     private String Description ;
 
     private Boolean availability_status ;

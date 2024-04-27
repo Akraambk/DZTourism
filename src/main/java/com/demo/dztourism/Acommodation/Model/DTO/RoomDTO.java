@@ -15,6 +15,8 @@ public class RoomDTO {
 
     private Long ID_Room ;
 
+    private int Room_number ;
+
     private int Capacity ;
 
     private String Description ;
