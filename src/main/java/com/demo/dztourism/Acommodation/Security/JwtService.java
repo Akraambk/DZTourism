@@ -4,7 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import lombok.RequiredArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,10 +13,10 @@ import org.springframework.stereotype.Service;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
 
 @Service
-@RequiredArgsConstructor
 public class JwtService {
     @Value("${application.security.jwt.expiration}")
     private long jwtExpiration;
@@ -25,16 +25,16 @@ public class JwtService {
     private String jwtSecretKey ;
 
     public String generateToken(UserDetails userDetails){
-        return generateToken(new HashMap<String , Claims>() , userDetails) ;
+        return generateToken(new HashMap<>() , userDetails) ;
 
     }
 
-    private String generateToken(HashMap<String, Claims> extraClaims, UserDetails userDetails) {
+    private String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
 
         return buildToken(extraClaims , userDetails , jwtExpiration);
     }
 
-    private String buildToken(HashMap<String, Claims> extraClaims, UserDetails userDetails, long jwtExpiration) {
+    private String buildToken(Map<String, Object> extraClaims, UserDetails userDetails, long jwtExpiration) {
 
         var authorities = userDetails
                 .getAuthorities()
@@ -43,12 +43,12 @@ public class JwtService {
                 .toList() ;
         return Jwts
                 .builder()
-                .setSubject(userDetails.getUsername())
                 .setClaims(extraClaims)
+                .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpiration))
-                .signWith(getSigningKey())
                 .claim("authorities" , authorities)
+                .signWith(getSigningKey())
                 .compact() ;
 
     }
@@ -82,10 +82,10 @@ public class JwtService {
 public boolean isTokenValid(String token , UserDetails userDetails ){
 
         final String userName = extractUserName(token) ;
-      return  userName.equals(userDetails.getUsername()) && !isTokenExpired(token , userDetails) ;
+      return  (userName.equals(userDetails.getUsername()) )&& !isTokenExpired(token ) ;
 }
 
-    public boolean isTokenExpired(String token, UserDetails userDetails) {
+    public boolean isTokenExpired(String token) {
 
         return extractExpiration(token).before(new Date()) ;
     }

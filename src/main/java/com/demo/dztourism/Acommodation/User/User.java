@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -26,11 +27,13 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+
 public class User implements UserDetails , Principal {
 
 
     @Id
-    private Long Id ;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long ID ;
     private String FirstName ;
     private String LastName ;
     private LocalDate birthDate ;
@@ -97,7 +100,7 @@ public class User implements UserDetails , Principal {
         return enabled;
     }
 
-    private String getFullName(){
+    public  String getFullName(){
         return FirstName+" "+LastName;
     }
 }

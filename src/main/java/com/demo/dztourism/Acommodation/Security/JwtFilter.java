@@ -10,7 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -19,11 +21,11 @@ import java.io.IOException;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 
-@Service
+@Component
 @RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
 
-    private  final UserDetailsServiceImpl userDetailsService ;
+    private  final UserDetailsService userDetailsService ;
     private final JwtService jwtService ;
 
 
@@ -37,7 +39,7 @@ public class JwtFilter extends OncePerRequestFilter {
             return;
 
     }
-        final String authHeader = response.getHeader(AUTHORIZATION) ;
+        final String authHeader = response.getHeader("Authorization") ;
         final String jwt ;
         final String userEmail ;
 
@@ -48,10 +50,10 @@ public class JwtFilter extends OncePerRequestFilter {
         }
         jwt = authHeader.substring(7) ;
         userEmail = jwtService.extractUserName(jwt) ;
-        UserDetails userDetails = userDetailsService.loadUserByUsername(userEmail) ;
 
-        if(userEmail != null && SecurityContextHolder.getContext().getAuthentication() != null) {
 
+        if(userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail) ;
             if(jwtService.isTokenValid(jwt , userDetails)) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails ,
