@@ -3,19 +3,26 @@ package com.demo.dztourism.Acommodation.Authentication;
 import com.demo.dztourism.Acommodation.Email.EmailService;
 import com.demo.dztourism.Acommodation.Email.EmailTemplateName;
 import com.demo.dztourism.Acommodation.Role.RoleRepository;
+import com.demo.dztourism.Acommodation.Security.JwtService;
 import com.demo.dztourism.Acommodation.User.Token;
 import com.demo.dztourism.Acommodation.User.TokenRepository;
 import com.demo.dztourism.Acommodation.User.User;
 import com.demo.dztourism.Acommodation.User.UserRepository;
 import jakarta.mail.MessagingException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -28,6 +35,8 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder ;
     private final TokenRepository tokenRepository ;
     private final EmailService emailService ;
+    private final AuthenticationManager authenticationManager ;
+    private final JwtService jwtService ;
     @Value("${application.security.mailing.frontend.activation-url}")
     private String confirmationUrl;
     public void register(RegistrationRequest registrationRequest) throws MessagingException {
@@ -55,7 +64,7 @@ public class AuthenticationService {
 
         emailService.sendMail(user.getEmail() ,
                 user.getFullName() ,
-                EmailTemplateName.ACTIVATE_ACCOUNT,
+                EmailTemplateName.ACTIVATE,
                 confirmationUrl ,
                 token ,
                 "Account activation");
@@ -88,4 +97,43 @@ public class AuthenticationService {
         }
         return stringBuilder.toString() ;
   }
+
+    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+
+        var auth =authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getEmail() ,
+                        request.getPassword()
+                )
+        ) ;
+
+        var claims = new HashMap<String , Object>() ;
+        var user = ((User)auth.getPrincipal()) ;
+        claims.put("FullName" , user.getFullName()) ;
+
+        var jwtToken = jwtService.generateToken(claims , user ) ;
+
+        return AuthenticationResponse.builder()
+                .token(jwtToken)
+                .build();
+    }
+
+    @Transactional
+    public void activateAccount(String token) throws MessagingException {
+
+        Token savedtoken = tokenRepository.findByToken(token).orElseThrow(() -> new RuntimeException("Invalid token")) ;
+        if (LocalDateTime.now().isAfter(savedtoken.getExpiresAt())){
+
+            sendValidationEmail(savedtoken.getUser());
+            throw new RuntimeException("Activation token has expired , a new token has being send to the same email ") ;
+        }
+        var user = userRepository.findById(savedtoken.getUser().getID())
+                .orElseThrow(()-> new UsernameNotFoundException("User not found ")) ;
+        user.setEnabled(true);
+        userRepository.save(user) ;
+        savedtoken.setValidatedAt(LocalDateTime.now());
+        tokenRepository.save(savedtoken);
+
+
+    }
 }
