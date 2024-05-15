@@ -1,7 +1,5 @@
 package com.demo.dztourism.Acommodation.Model.DTO;
 
-import com.demo.dztourism.Acommodation.Model.Hotel;
-import com.demo.dztourism.Acommodation.Model.Room_Type;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

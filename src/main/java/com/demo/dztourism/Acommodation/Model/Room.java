@@ -1,6 +1,6 @@
 package com.demo.dztourism.Acommodation.Model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Entity
 @Data
@@ -25,7 +25,7 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID_Room ;
 
-    private int Capacity ;
+    private int capacity ;
 
     private int Room_number ;
 
@@ -37,7 +37,7 @@ public class Room {
             name = "ID_Hotel"
     )
     @JsonIgnore
-    private Hotel Hotel ;
+    private Hotel hotel ;
 
 
 
@@ -55,8 +55,6 @@ public class Room {
             cascade = CascadeType.ALL
     )
     private List<Reservation> Reservations ;
-
-
 
 
 }

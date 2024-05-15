@@ -5,6 +5,7 @@ import com.demo.dztourism.Acommodation.Model.DTO.HotelGetDTO;
 import com.demo.dztourism.Acommodation.Model.Hotel;
 import com.demo.dztourism.Acommodation.Repository.HotelRepository;
 import com.demo.dztourism.Acommodation.Service.HotelService;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,16 +14,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class HotelServiceImpl implements HotelService {
 
    private final ModelMapper modelMapper ;
     private final HotelRepository hotelRepository ;
-
-    @Autowired
-    public HotelServiceImpl(ModelMapper modelMapper, HotelRepository hotelRepository) {
-        this.modelMapper = modelMapper;
-        this.hotelRepository = hotelRepository;
-    }
 
     @Override
     public HotelDTO save(HotelDTO hotelDTO) {

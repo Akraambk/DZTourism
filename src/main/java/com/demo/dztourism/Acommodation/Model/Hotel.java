@@ -36,7 +36,7 @@ public class Hotel {
 
     private String Street_Address ;
 
-    private String City ;
+    private String city ;
 
     private int Postal_Code ;
 
@@ -51,7 +51,7 @@ public class Hotel {
     private String Photos ;
 
     @OneToMany(
-            mappedBy = "Hotel" ,
+            mappedBy = "hotel" ,
             cascade = CascadeType.ALL )
     private List<Room> Room;
 }

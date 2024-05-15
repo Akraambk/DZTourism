@@ -3,6 +3,7 @@ package com.demo.dztourism.Acommodation.Controllers;
 import com.demo.dztourism.Acommodation.Model.DTO.RoomDTO;
 import com.demo.dztourism.Acommodation.Service.Impl.RoomServiceImpl;
 import com.demo.dztourism.Acommodation.Service.RoomService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,14 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/Room/")
+@RequiredArgsConstructor
 public class RoomController {
 
-    RoomServiceImpl roomService ;
+   private final  RoomServiceImpl roomService ;
 
-    @Autowired
-    public RoomController(RoomServiceImpl roomService) {
-        this.roomService = roomService;
-    }
+
 
     @PostMapping(value = "createRoom")
 
