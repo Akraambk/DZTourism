@@ -78,9 +78,9 @@ public class HotelController {
         List<Hotel> retrievedHotels = hotelRepository.findByCity(city) ;
 
         if (retrievedHotels.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Return 404 if no hotels found
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-            return new ResponseEntity<>(retrievedHotels, HttpStatus.OK); // Return the list of hotels
+            return new ResponseEntity<>(retrievedHotels, HttpStatus.OK);
         }
 
     }
