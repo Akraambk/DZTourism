@@ -1,29 +1,29 @@
 package com.demo.dztourism.Acommodation.Model;
 
 
+import com.demo.dztourism.Acommodation.Booking.BookingRequest;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.util.Date;
 import java.util.List;
 
 
 @Entity
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Table(
         name = "Rooms"
 )
+@Getter
+@Setter
 public class Room {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ID_Room ;
+    private Long roomId ;
 
     private int capacity ;
 
@@ -50,11 +50,11 @@ public class Room {
 
 
 
-    @ManyToMany(
-            mappedBy = "Rooms" ,
+    @OneToMany(
+            mappedBy = "room" ,
             cascade = CascadeType.ALL
     )
-    private List<Reservation> Reservations ;
-
+    @JsonIgnore
+    private List<Reservation> reservation ;
 
 }

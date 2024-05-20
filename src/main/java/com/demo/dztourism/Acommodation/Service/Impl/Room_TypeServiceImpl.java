@@ -8,6 +8,7 @@ import com.demo.dztourism.Acommodation.Repository.HotelRepository;
 import com.demo.dztourism.Acommodation.Repository.RoomRepository;
 import com.demo.dztourism.Acommodation.Repository.Room_TypeRepository;
 import com.demo.dztourism.Acommodation.Service.Room_TypeService;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class Room_TypeServiceImpl implements Room_TypeService {
 
     private final Room_TypeRepository roomTypeRepository ;
@@ -23,13 +25,6 @@ public class Room_TypeServiceImpl implements Room_TypeService {
 
     private final HotelServiceImpl hotelService ;
 
-    public Room_TypeServiceImpl(Room_TypeRepository roomTypeRepository, ModelMapper modelMapper, RoomRepository roomRepository, HotelServiceImpl hotelService) {
-        this.roomTypeRepository = roomTypeRepository;
-        this.modelMapper = modelMapper;
-        this.roomRepository = roomRepository;
-        this.hotelService = hotelService;
-
-    }
 
     @Override
     public Room_typeDTO createRoom_Type(Room_typeDTO room_typeDTO) {

@@ -34,21 +34,11 @@ public class Reservation {
     private Boolean Reservation_status ;
 
 
-    @ManyToMany
-    @JoinTable(
-            name = "Reservations_Rooms_Package_Types" ,
-            joinColumns = {
-                    @JoinColumn(
-                            name = "ID_Reservation"
-                    )
-            } ,
-            inverseJoinColumns = {
-                    @JoinColumn(
-                            name = "ID_Room"
-                    )
-            }
-    )
-    private List<Room> Rooms ;
+   @ManyToOne
+   @JoinColumn(
+           name = "ID_Room"
+   )
+    private Room room ;
 
     @ManyToMany
     @JoinTable(
