@@ -4,7 +4,6 @@ import com.demo.dztourism.Acommodation.Model.DTO.HotelGetDTO;
 import com.demo.dztourism.Acommodation.Model.DTO.Room_typeDTO;
 import com.demo.dztourism.Acommodation.Model.Hotel;
 import com.demo.dztourism.Acommodation.Model.Room_Type;
-import com.demo.dztourism.Acommodation.Repository.HotelRepository;
 import com.demo.dztourism.Acommodation.Repository.RoomRepository;
 import com.demo.dztourism.Acommodation.Repository.Room_TypeRepository;
 import com.demo.dztourism.Acommodation.Service.Room_TypeService;
@@ -13,7 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
