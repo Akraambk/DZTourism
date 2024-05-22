@@ -1,11 +1,14 @@
-package com.demo.dztourism.Activity;
+package com.demo.dztourism.Acommodation.Activity;
 
+import com.demo.dztourism.Acommodation.Category.Category;
 import com.demo.dztourism.Acommodation.User.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import java.time.LocalDate;
+
+
 
 
 @Entity
@@ -18,20 +21,30 @@ public class Activity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long Activity_ID;
     private String name;
     private String description;
-    private String category;
+
     private String location;
-    private LocalDateTime date;
+    private LocalDate date;
     private int duration;
     private double price;
     private int capacity;
 
 
     @ManyToOne
+    @JoinColumn(
+            name = "ID"
+    )
+    @JsonIgnore
     private User Provider;
 
+    @ManyToOne
+    @JoinColumn(
+           name = "category_id"
+    )
+    @JsonIgnore
+    private Category category;
 
 
 

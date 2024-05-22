@@ -1,11 +1,8 @@
-package com.demo.dztourism.Activity;
+package com.demo.dztourism.Acommodation.Activity;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
-
-import java.time.LocalDateTime;
 
 @Builder
 @Getter

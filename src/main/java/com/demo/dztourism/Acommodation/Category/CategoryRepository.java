@@ -1,8 +1,8 @@
-package com.demo.dztourism.Activity;
+package com.demo.dztourism.Acommodation.Category;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ActivityRepository extends JpaRepository<Activity , Long> {
+public interface CategoryRepository extends JpaRepository< Category, Long> {
 }
