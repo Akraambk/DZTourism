@@ -1,6 +1,8 @@
 package com.demo.dztourism.Acommodation.User;
 
+import com.demo.dztourism.Acommodation.Model.Reservation;
 import com.demo.dztourism.Acommodation.Role.Role;
+import com.demo.dztourism.Activity.Activity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -53,6 +55,17 @@ public class User implements UserDetails , Principal {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles ;
+
+    @OneToMany(
+            mappedBy = "Provider" ,
+            cascade = CascadeType.ALL )
+    private List<Activity> activities ;
+
+
+    @OneToMany(
+            mappedBy = "client" ,
+            cascade = CascadeType.ALL )
+    private List<Reservation> reservations ;
 
 
 

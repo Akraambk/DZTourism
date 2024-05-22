@@ -22,54 +22,102 @@ public class EmailService {
     private final JavaMailSender mailSender ;
     private final SpringTemplateEngine templateEngine ;
 
+//    @Async
+//   public void sendMail(
+//           String to ,
+//           String userName ,
+//           EmailTemplateName emailTemplate ,
+//           String confirmationUrl ,
+//           String activationCode ,
+//           String subject
+//   ) throws MessagingException {
+//
+//       String templateName ;
+//
+//       if (emailTemplate == null) {
+//           templateName = "confirmation_mail" ;
+//       }else {
+//           templateName = emailTemplate.name() ;
+//       }
+//
+//       MimeMessage mimeMessage = mailSender.createMimeMessage();
+//       MimeMessageHelper helper = new MimeMessageHelper(
+//               mimeMessage ,
+//               MimeMessageHelper.MULTIPART_MODE_MIXED ,
+//               UTF_8.name()
+//       ) ;
+//
+//       Map<String , Object> properties = new HashMap<>() ;
+//
+//       properties.put("userName" , userName);
+//       properties.put("confirmationUrl" , confirmationUrl);
+//       properties.put("activationCode" , activationCode);
+//
+//       Context context = new Context() ;
+//       context.setVariables(properties);
+//
+//       helper.setTo(to);
+//       helper.setFrom("bakhouche.akram01@gmail.com");
+//       helper.setSubject(subject);
+//
+//       String text = templateEngine.process(templateName , context) ;
+//       helper.setText(text , true);
+//
+//       mailSender.send(mimeMessage);
+//
+//   }
+//
+
+
     @Async
-   public void sendMail(
-           String to ,
-           String userName ,
-           EmailTemplateName emailTemplate ,
-           String confirmationUrl ,
-           String activationCode ,
-           String subject
-   ) throws MessagingException {
+    public void sendMail(
+            String to,
+            String userName,
+            EmailTemplateName emailTemplate,
+            String confirmationUrl,
+            String activationCode,
+            String subject
+    ) throws MessagingException {
+        /* Determine the email template name
+         based on the provided EmailTemplateName */
+        String templateName;
+        if (emailTemplate == null) {
+            templateName = "confirmation_mail";
+        } else {
+            templateName = emailTemplate.name();
+        }
 
-       String templateName ;
+        // Create a MimeMessage for sending the email
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(
+                mimeMessage,
+                MimeMessageHelper.MULTIPART_MODE_MIXED,
+                UTF_8.name()
+        );
 
-       if (emailTemplate == null) {
-           templateName = "confirmation_mail" ;
-       }else {
-           templateName = emailTemplate.name() ;
-       }
+        // Prepare email template variables
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("userName", userName);
+        properties.put("confirmationUrl", confirmationUrl);
+        properties.put("activationCode", activationCode);
 
-       MimeMessage mimeMessage = mailSender.createMimeMessage();
-       MimeMessageHelper helper = new MimeMessageHelper(
-               mimeMessage ,
-               MimeMessageHelper.MULTIPART_MODE_MIXED ,
-               UTF_8.name()
-       ) ;
+        // Create a Thymeleaf context and set template variables
+        Context context = new Context();
+        context.setVariables(properties);
 
-       Map<String , Object> properties = new HashMap<>() ;
+        // Configure email properties
+        helper.setTo(to);
+        helper.setFrom("bakhouche.akram01@gmail.com");
+        helper.setSubject(subject);
 
-       properties.put("userName" , userName);
-       properties.put("confirmationUrl" , confirmationUrl);
-       properties.put("activationCode" , activationCode);
+        /* Process the Thymeleaf template with
+        the provided template name and context*/
+        String text = templateEngine.process(templateName, context);
+        helper.setText(text, true);
 
-       Context context = new Context() ;
-       context.setVariables(properties);
-
-       helper.setTo(to);
-       helper.setFrom("bakhouche.akram01@gmail.com");
-       helper.setSubject(subject);
-
-       String text = templateEngine.process(templateName , context) ;
-       helper.setText(text , true);
-
-       mailSender.send(mimeMessage);
-
-   }
-
-
-
-
+        // Send the email using the configured mail sender
+        mailSender.send(mimeMessage);
+    }
 
 
 

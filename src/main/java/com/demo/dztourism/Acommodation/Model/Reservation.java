@@ -1,5 +1,7 @@
 package com.demo.dztourism.Acommodation.Model;
 
+import com.demo.dztourism.Acommodation.User.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,6 +34,19 @@ public class Reservation {
     private int Children_Number ;
 
     private Boolean Reservation_status ;
+
+    @ManyToOne
+    @JoinColumn(
+            name = "ID_Bill"
+    )
+    private Bill bill ;
+
+    @ManyToOne
+    @JoinColumn(
+            name = "ID"
+    )
+    @JsonIgnore
+    private User client ;
 
 
    @ManyToOne
