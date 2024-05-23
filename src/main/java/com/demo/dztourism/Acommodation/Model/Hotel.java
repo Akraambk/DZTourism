@@ -54,4 +54,9 @@ public class Hotel {
             mappedBy = "hotel" ,
             cascade = CascadeType.ALL )
     private List<Room> Room;
+
+    @OneToMany(
+            mappedBy = "hotel" ,
+            cascade = CascadeType.ALL )
+    private List<Room_Type> room_type ;
 }

@@ -1,6 +1,7 @@
 package com.demo.dztourism.Acommodation.Model;
 
 import com.demo.dztourism.Acommodation.Model.Amenity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -51,4 +52,11 @@ public class Room_Type {
             }
     )
     private List<Amenity> Amenities ;
+
+    @ManyToOne
+    @JoinColumn(
+            name = "ID_Hotel"
+    )
+    @JsonIgnore
+    private Hotel hotel ;
 }

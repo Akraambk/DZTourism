@@ -73,15 +73,15 @@ public class HotelController {
 
     }
 
-    @GetMapping(value = "getHotelByCity")
-    public ResponseEntity<List<Hotel>> getHotelByCity(@RequestParam String city ){
-        List<Hotel> retrievedHotels = hotelRepository.findByCity(city) ;
-
-        if (retrievedHotels.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else {
-            return new ResponseEntity<>(retrievedHotels, HttpStatus.OK);
-        }
-
-    }
+//    @GetMapping(value = "getHotelByCity")
+//    public ResponseEntity<List<Hotel>> getHotelByCity(@RequestParam String city ){
+//        List<Hotel> retrievedHotels = hotelRepository.findByCity(city) ;
+//
+//        if (retrievedHotels.isEmpty()) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        } else {
+//            return new ResponseEntity<>(retrievedHotels, HttpStatus.OK);
+//        }
+//
+//    }
 }

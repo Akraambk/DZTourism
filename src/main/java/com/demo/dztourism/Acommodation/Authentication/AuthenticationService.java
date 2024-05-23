@@ -39,9 +39,9 @@ public class AuthenticationService {
     private final JwtService jwtService ;
     @Value("${application.security.mailing.frontend.activation-url}")
     private String confirmationUrl;
-    public void register(RegistrationRequest registrationRequest) throws MessagingException {
+    public void registerUser(RegistrationRequest registrationRequest) throws MessagingException {
 
-        var userRoles = roleRepository.findByName("USER")
+        var userRoles = roleRepository.findByName("ROLE_USER")
                 .orElseThrow( () -> new IllegalStateException(" Role not initialized " )) ;
         var user = User.builder()
                 .FirstName(registrationRequest.getFirstName())
@@ -51,6 +51,30 @@ public class AuthenticationService {
                 .Locked(false)
                 .enabled(false)
                 .roles(List.of(userRoles))
+                .build() ;
+
+        userRepository.save(user) ;
+        sendValidationEmail(user);
+
+
+    }
+
+    public void registerProvider(RegistrationRequest registrationRequest) throws MessagingException {
+
+        var userRoles = roleRepository.findByName("ROLE_USER")
+                .orElseThrow( () -> new IllegalStateException(" Role not initialized " )) ;
+        var additionalRole = roleRepository.findByName("ROLE_PROVIDER")
+                .orElseThrow( () -> new IllegalStateException(" Role not initialized " )) ;
+
+
+        var user = User.builder()
+                .FirstName(registrationRequest.getFirstName())
+                .LastName(registrationRequest.getLastName())
+                .email(registrationRequest.getEmail())
+                .password(passwordEncoder.encode(registrationRequest.getPassword()))
+                .Locked(false)
+                .enabled(false)
+                .roles(List.of(userRoles , additionalRole))
                 .build() ;
 
         userRepository.save(user) ;

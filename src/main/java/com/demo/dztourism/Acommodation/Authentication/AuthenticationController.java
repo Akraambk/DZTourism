@@ -17,14 +17,23 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService ;
 
 
-     @PostMapping("/register")
+     @PostMapping("/registerUser")
      @ResponseStatus(HttpStatus.ACCEPTED)
-     public ResponseEntity<?> register (@RequestBody @Valid RegistrationRequest registrationRequest) throws MessagingException {
+     public ResponseEntity<?> registerUser (@RequestBody @Valid RegistrationRequest registrationRequest) throws MessagingException {
 
-         authenticationService.register(registrationRequest) ;
+         authenticationService.registerUser(registrationRequest) ;
          return ResponseEntity.accepted().build() ;
 
      }
+
+    @PostMapping("/registerProvider")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public ResponseEntity<?> registerProvider (@RequestBody @Valid RegistrationRequest registrationRequest) throws MessagingException {
+
+        authenticationService.registerProvider(registrationRequest) ;
+        return ResponseEntity.accepted().build() ;
+
+    }
 
 
      @PostMapping("/authenticate")
@@ -42,6 +51,7 @@ public class AuthenticationController {
          authenticationService.activateAccount(token) ;
 
      }
+
 
 
 

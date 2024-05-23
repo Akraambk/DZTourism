@@ -4,6 +4,7 @@ import com.demo.dztourism.Acommodation.Model.DTO.HotelGetDTO;
 import com.demo.dztourism.Acommodation.Model.DTO.Room_typeDTO;
 import com.demo.dztourism.Acommodation.Model.Hotel;
 import com.demo.dztourism.Acommodation.Model.Room_Type;
+import com.demo.dztourism.Acommodation.Repository.HotelRepository;
 import com.demo.dztourism.Acommodation.Repository.RoomRepository;
 import com.demo.dztourism.Acommodation.Repository.Room_TypeRepository;
 import com.demo.dztourism.Acommodation.Service.Room_TypeService;
@@ -12,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -21,7 +23,7 @@ public class Room_TypeServiceImpl implements Room_TypeService {
     private final Room_TypeRepository roomTypeRepository ;
     private final ModelMapper modelMapper ;
     private final RoomRepository roomRepository ;
-
+private final HotelRepository hotelRepository ;
     private final HotelServiceImpl hotelService ;
 
 
@@ -63,5 +65,16 @@ public class Room_TypeServiceImpl implements Room_TypeService {
     @Override
     public Room_typeDTO updateRoom_Type(Long id, Room_typeDTO room_typeDTO) {
         return null;
+    }
+
+
+    public List<Room_Type> SearchRoomTypeByHotel(Long hotelId){
+
+        Optional<Hotel> hotelOptional = hotelRepository.findById(hotelId);
+        Hotel retrievedHotel = hotelOptional.orElseThrow(() -> new RuntimeException("hotel not found"));
+
+       return  roomTypeRepository.findByHotel(retrievedHotel) ;
+
+
     }
 }
