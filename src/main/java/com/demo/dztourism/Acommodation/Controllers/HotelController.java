@@ -42,10 +42,10 @@ public class HotelController {
 
     }
 
-    @GetMapping(value = "getHotelById/{Id}")
-    public ResponseEntity<HotelGetDTO> getHotelById(@PathVariable Long Id){
+    @GetMapping(value = "getHotelById/{id_hotel}")
+    public ResponseEntity<HotelGetDTO> getHotelById(@PathVariable Long id_hotel){
 
-        HotelGetDTO hotel = hotelService.getHotelById(Id);
+        HotelGetDTO hotel = hotelService.getHotelById(id_hotel);
 
         return new ResponseEntity<>(hotel, HttpStatus.OK);
 

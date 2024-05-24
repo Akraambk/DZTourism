@@ -55,7 +55,7 @@ public class Room_Type {
 
     @ManyToOne
     @JoinColumn(
-            name = "ID_Hotel"
+            name = "id_hotel"
     )
     @JsonIgnore
     private Hotel hotel ;

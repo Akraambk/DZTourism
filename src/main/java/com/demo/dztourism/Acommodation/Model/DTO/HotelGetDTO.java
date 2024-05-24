@@ -24,12 +24,22 @@ public class HotelGetDTO {
 
     private int Star_Rating ;
 
+    private String Street_Address ;
+
     private String Description ;
+
+    private int Postal_Code ;
 
     private String City ;
 
     private String Country ;
 
     private List<Room> Room;
+
+    private int Latitude ;
+
+    private int Longitude ;
+
+    private String Timezone ;
 
 }

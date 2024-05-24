@@ -29,10 +29,10 @@ public class Room_TypeController {
 
     }
 
-    @GetMapping("SearchRoomTypeByHotel")
-    public ResponseEntity<List<Room_Type>> SearchRoomTypeByHotel(@RequestParam Long hotelId){
+    @GetMapping("SearchRoomTypeByHotel/{id_hotel}")
+    public ResponseEntity<List<Room_Type>> SearchRoomTypeByHotel(@PathVariable Long id_hotel){
 
-        return new ResponseEntity<>(roomTypeService.SearchRoomTypeByHotel(hotelId) ,HttpStatus.FOUND) ;
+        return new ResponseEntity<>(roomTypeService.SearchRoomTypeByHotel(id_hotel) ,HttpStatus.FOUND) ;
 
     }
 }
