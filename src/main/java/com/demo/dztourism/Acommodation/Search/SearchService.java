@@ -4,12 +4,16 @@ package com.demo.dztourism.Acommodation.Search;
 import com.demo.dztourism.Acommodation.Category.Category;
 import com.demo.dztourism.Acommodation.Category.CategoryRepository;
 
+import com.demo.dztourism.Acommodation.Model.Hotel;
 import com.demo.dztourism.Acommodation.Model.Room;
+import com.demo.dztourism.Acommodation.Model.Room_Type;
+import com.demo.dztourism.Acommodation.Repository.HotelRepository;
 import com.demo.dztourism.Acommodation.Repository.RoomRepository;
 import com.demo.dztourism.Acommodation.Activity.Activity;
 import com.demo.dztourism.Acommodation.Activity.ActivityRepository;
 import com.demo.dztourism.Acommodation.Activity.ActivityRequest;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -25,21 +29,24 @@ public class SearchService {
     private final ActivityRepository activityRepository ;
 
     private final CategoryRepository categoryRepository ;
+    private final HotelRepository hotelRepository ;
 
-    public SearchResponse SearchForRoom(SearchRequest request){
+    private final ModelMapper modelMapper ;
 
-      List<Room> rooms =   roomRepository.findByHotelCityAndCapacity(request.getDestination() , request.getAdultsNumber()) ;
-
-      rooms.forEach( room -> {
-                  isAvailable(room, request.getCheckIn(), request.getCheckOut());
-              }
-      );
-
-
-      return SearchResponse.builder()
-              .Rooms(rooms)
-              .build() ;
-    }
+//    public SearchResponse SearchForRoom(SearchRequest request){
+//
+//      List<Room> rooms =   roomRepository.findByHotelCityAndCapacity(request.getDestination() , request.getAdultsNumber()) ;
+//
+//      rooms.forEach( room -> {
+//                  isAvailable(room, request.getCheckIn(), request.getCheckOut());
+//              }
+//      );
+//
+//
+//      return SearchResponse.builder()
+//              .Rooms(rooms)
+//              .build() ;
+//    }
 
     public void isAvailable(Room room , Date checkIn , Date checkOut) {
 
@@ -72,8 +79,16 @@ public class SearchService {
     }
 
 
+    public SearchHotelResponse SearchRoomTypeByHotel(SearchRequest request) {
 
+        Optional<Hotel> hotel = hotelRepository.findById(request.getId_hotel()) ;
 
+        Hotel retrievedHotel = hotel.orElseThrow(()-> new RuntimeException("hotel not found ")) ;
 
+        retrievedHotel
+                .getRoom()
+                .forEach(room -> isAvailable(room , request.getCheckIn() , request.getCheckOut()));
 
+        return modelMapper.map(retrievedHotel , SearchHotelResponse.class);
+    }
 }

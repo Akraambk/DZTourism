@@ -4,7 +4,9 @@ import com.demo.dztourism.Acommodation.Activity.Activity;
 import com.demo.dztourism.Acommodation.Activity.ActivityRequest;
 import com.demo.dztourism.Acommodation.Category.Category;
 import com.demo.dztourism.Acommodation.Model.Hotel;
+import com.demo.dztourism.Acommodation.Model.Room_Type;
 import com.demo.dztourism.Acommodation.Repository.HotelRepository;
+import com.demo.dztourism.Acommodation.Repository.Room_TypeRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping( "/Search/")
@@ -21,13 +24,15 @@ public class SearchController {
     private final SearchService searchService ;
     private final HotelRepository hotelRepository ;
 
+    private final Room_TypeRepository roomTypeRepository ;
 
-    @GetMapping("/Room")
-    public ResponseEntity<SearchResponse> searchForRoom(@RequestBody @Valid SearchRequest request){
 
-        return ResponseEntity.ok(searchService.SearchForRoom(request)) ;
-
-    }
+//    @GetMapping("/Room")
+//    public ResponseEntity<SearchResponse> searchForRoom(@RequestBody @Valid SearchRequest request){
+//
+//        return ResponseEntity.ok(searchService.SearchForRoom(request)) ;
+//
+//    }
 
     @GetMapping("SearchActivity")
     public ResponseEntity<List<Activity>> SearchActivity(@RequestBody ActivityRequest request){
@@ -50,6 +55,16 @@ public class SearchController {
         } else {
             return new ResponseEntity<>(retrievedHotels, HttpStatus.OK);
         }
+
+    }
+
+
+    @GetMapping("SearchRoomTypeByHotel")
+    public SearchHotelResponse SearchRoomTypeByHotel(@RequestBody @Valid SearchRequest request){
+
+
+        return searchService.SearchRoomTypeByHotel(request) ;
+
 
     }
 

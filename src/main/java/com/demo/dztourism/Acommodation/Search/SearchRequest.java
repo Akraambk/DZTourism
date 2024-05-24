@@ -15,8 +15,8 @@ import java.util.Date;
 @Setter
 public class SearchRequest {
 
-    @NotEmpty(message = "destination is mandatory")
-    @NotBlank(message = "destination is mandatory")
+//    @NotEmpty(message = "destination is mandatory")
+//    @NotBlank(message = "destination is mandatory")
     private String destination ;
 
 //    @NotEmpty(message = "checkIn is mandatory")
@@ -38,5 +38,9 @@ public class SearchRequest {
 //    @NotEmpty(message = "nbrRooms is mandatory")
 //    @NotBlank(message = "nbrRooms is mandatory")
     private int nbrRooms ;
+
+    private Long id_hotel ;
+
+
 
 }
