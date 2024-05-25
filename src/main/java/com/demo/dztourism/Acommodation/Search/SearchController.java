@@ -9,10 +9,12 @@ import com.demo.dztourism.Acommodation.Repository.HotelRepository;
 import com.demo.dztourism.Acommodation.Repository.Room_TypeRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,11 +61,14 @@ public class SearchController {
     }
 
 
-    @GetMapping("SearchRoomTypeByHotel")
-    public SearchHotelResponse SearchRoomTypeByHotel(@RequestBody @Valid SearchRequest request){
+    @GetMapping("SearchRoomTypeByHotel/{id_hotel}/{checkIn}/{checkOut}")
+    public SearchHotelResponse SearchRoomTypeByHotel(
+            @PathVariable Long id_hotel ,
+            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date checkIn ,
+            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date checkOut){
 
 
-        return searchService.SearchRoomTypeByHotel(request) ;
+        return searchService.SearchRoomTypeByHotel(id_hotel , checkIn , checkOut) ;
 
 
     }

@@ -15,7 +15,7 @@ public class BookingController {
     @PostMapping("roomBooking")
     public ResponseEntity<BookingResponse> book(@RequestBody BookingRequest request){
 
-       return new ResponseEntity<>(bookingService.bookRoom(request), HttpStatus.CREATED)  ;
+       return new ResponseEntity<>(bookingService.bookListRoom(request), HttpStatus.CREATED)  ;
 
     }
 

@@ -23,7 +23,7 @@ public class Room {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long roomId ;
+    private Long ID_Room ;
 
     private int capacity ;
 
@@ -50,8 +50,8 @@ public class Room {
 
 
 
-    @OneToMany(
-            mappedBy = "room" ,
+    @ManyToMany(
+            mappedBy = "rooms" ,
             cascade = CascadeType.ALL
     )
     @JsonIgnore

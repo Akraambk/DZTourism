@@ -15,11 +15,11 @@ public interface  RoomRepository extends JpaRepository<Room, Long> {
 
     List<Room> findByHotelCityAndCapacity(String city , int capacity) ;
     @Query("SELECT CASE WHEN COUNT(r) > 0 THEN false ELSE true END " +
-            "FROM Reservation res JOIN res.room r " +
-            "WHERE r.roomId = :idRoom " +
+            "FROM Reservation res JOIN res.rooms r " +
+            "WHERE r.ID_Room = :idRoom " +
             "AND ((res.Check_In <= :checkOut AND res.Check_Out >= :checkIn))")
     boolean isRoomAvailable(@Param("idRoom") Long idRoom, @Param("checkIn") Date checkIn, @Param("checkOut") Date checkOut);
 
 
-    Optional<Room> findByRoomId(Long idRoom);
+  //  Optional<Room> findByID_Room(Long idRoom);
 }

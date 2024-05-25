@@ -50,7 +50,7 @@ public class SearchService {
 
     public void isAvailable(Room room , Date checkIn , Date checkOut) {
 
-        if (roomRepository.isRoomAvailable(room.getRoomId(), checkIn, checkOut)){
+        if (roomRepository.isRoomAvailable(room.getID_Room(), checkIn, checkOut)){
             room.setAvailability_status(true);
         }else {
             room.setAvailability_status(false);
@@ -79,15 +79,15 @@ public class SearchService {
     }
 
 
-    public SearchHotelResponse SearchRoomTypeByHotel(SearchRequest request) {
+    public SearchHotelResponse SearchRoomTypeByHotel(Long id_hotel , Date checkIn , Date checkOut) {
 
-        Optional<Hotel> hotel = hotelRepository.findById(request.getId_hotel()) ;
+        Optional<Hotel> hotel = hotelRepository.findById(id_hotel) ;
 
         Hotel retrievedHotel = hotel.orElseThrow(()-> new RuntimeException("hotel not found ")) ;
 
         retrievedHotel
                 .getRoom()
-                .forEach(room -> isAvailable(room , request.getCheckIn() , request.getCheckOut()));
+                .forEach(room -> isAvailable(room , checkIn , checkOut));
 
         return modelMapper.map(retrievedHotel , SearchHotelResponse.class);
     }

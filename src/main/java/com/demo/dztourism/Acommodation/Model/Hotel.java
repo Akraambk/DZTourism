@@ -38,13 +38,13 @@ public class Hotel {
 
     private String city ;
 
-    private int Postal_Code ;
+    private Double Postal_Code ;
 
     private String Country ;
 
-    private int Latitude ;
+    private Double Latitude ;
 
-    private int Longitude ;
+    private Double Longitude ;
 
     private String Timezone ;
 

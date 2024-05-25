@@ -5,13 +5,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
 @Builder
 public class BookingRequest {
 
-    private Long room_id ;
+    private List<Long> room_id ;
 
     private Date Check_In ;
 

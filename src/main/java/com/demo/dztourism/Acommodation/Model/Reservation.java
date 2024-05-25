@@ -48,13 +48,6 @@ public class Reservation {
     @JsonIgnore
     private User client ;
 
-
-   @ManyToOne
-   @JoinColumn(
-           name = "ID_Room"
-   )
-    private Room room ;
-
     @ManyToMany
     @JoinTable(
             name = "Reservations_Rooms_Package_Types" ,
@@ -70,6 +63,25 @@ public class Reservation {
             }
     )
     private List<com.demo.dztourism.Acommodation.Model.Package_Type> Package_Type ;
+
+    @ManyToMany
+    @JoinTable(
+            name = "Rooms_Reservation" ,
+            joinColumns = {
+                    @JoinColumn(
+                            name = "ID_Reservation"
+                    )
+            } ,
+            inverseJoinColumns = {
+                    @JoinColumn(
+                            name = "room_id"
+                    )
+            }
+    )
+    private  List<Room> rooms ;
+
+
+
 
 
 }
